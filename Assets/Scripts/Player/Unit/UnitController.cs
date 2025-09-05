@@ -4,6 +4,7 @@ using Command.Actions;
 using System.Collections;
 using System;
 using Object = UnityEngine.Object;
+using UnityEditor;
 
 namespace Command.Player
 {
@@ -118,21 +119,20 @@ namespace Command.Player
             unitView.transform.position = targetPosition;
 
             if (shouldPlayActionAnimation)
-                PlayActionAnimation(actionTypeToExecute);
+                PlayActionAnimation(actionTypeToExecute, callback);
 
-            if (callback != null)
-                callback.Invoke();
+            //callback?.Invoke();
         }
 
-        private void PlayActionAnimation(ActionType actionType)
+        private void PlayActionAnimation(ActionType actionType, Action callBack)
         {
             if (actionType == ActionType.None)
                 return;
             
             if (actionType == unitScriptableObject.executableCommands[0])
-                unitView.PlayAnimation(UnitAnimations.ACTION1);
+                unitView.PlayAnimation(UnitAnimations.ACTION1, callBack);
             else if (actionType == unitScriptableObject.executableCommands[1])
-                unitView.PlayAnimation(UnitAnimations.ACTION2);
+                unitView.PlayAnimation(UnitAnimations.ACTION2, callBack);
             else
                 throw new System.Exception($"No Animation found for the action type : {actionType}");
         }
