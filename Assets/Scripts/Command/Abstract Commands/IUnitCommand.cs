@@ -2,7 +2,7 @@
 
 namespace Command.Commands
 {
-    public abstract class UnitCommand : ICommand
+    public abstract class IUnitCommand : ICommand
     {
         // Fields to store information related to the command.
         public int ActorUnitID;
