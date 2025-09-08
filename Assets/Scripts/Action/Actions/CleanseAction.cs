@@ -1,8 +1,8 @@
-using Command.Input;
 using Command.Player;
 using Command.Main;
-using UnityEngine;
 using Command.Commands;
+using Command.Input;
+using UnityEngine;
 
 namespace Command.Actions
 {
@@ -12,7 +12,7 @@ namespace Command.Actions
         private UnitController actorUnit;
         private UnitController targetUnit;
         private bool isSuccessful;
-        public TargetType TargetType  => TargetType.Enemy;
+        public TargetType TargetType => TargetType.Enemy;
 
         public void PerformAction(UnitController actorUnit, UnitController targetUnit, bool isSuccessful)
         {

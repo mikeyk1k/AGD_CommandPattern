@@ -1,6 +1,7 @@
-using Command.Input;
 using Command.Main;
 using Command.Player;
+using Command.Commands;
+using Command.Input;
 using UnityEngine;
 
 namespace Command.Actions
@@ -18,7 +19,7 @@ namespace Command.Actions
             this.targetUnit = targetUnit;
             this.isSuccessful = isSuccessful;
 
-            actorUnit.PlayBattleAnimation(CommandType.BerserkAttack, CalculateMovePosition(targetUnit), OnActionAnimationCompleted);
+            actorUnit.PlayBattleAnimation(CommandType.ThirdEye, CalculateMovePosition(targetUnit), OnActionAnimationCompleted);
         }
 
         public void OnActionAnimationCompleted()
