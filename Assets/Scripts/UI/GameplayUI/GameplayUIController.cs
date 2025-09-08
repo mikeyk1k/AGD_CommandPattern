@@ -48,6 +48,7 @@ namespace Command.UI
         public void ResetBattleBackgroundOverlay() => gameplayView.ResetBackgroundOverlay();
 
         public void ShowMissedAction() => gameplayView.ShowMissedText();
+        public void OnUndoButtonClicked() => GameService.Instance.CommandInvoker.UndoLastCommand();
 
         public void SetBattleBackgroundImage(Sprite bgSprite) => gameplayView.SetBattleBackgroundImage(bgSprite);
     }

@@ -24,7 +24,7 @@ namespace Command.UI
         {
             controller = controllerToSet;
             missedText.canvasRenderer.SetAlpha(0);
-            undoButton.onClick.AddListener(OnUndoButtonClicked);
+            undoButton.onClick.AddListener(controller.OnUndoButtonClicked);
         }
 
         public void DisableView() => gameObject.SetActive(false);
@@ -85,11 +85,6 @@ namespace Command.UI
         {
             backgroundImage.gameObject.SetActive(true);
             backgroundImage.sprite = bgSprite;
-        } 
-
-        private void OnUndoButtonClicked()
-        {
-            GameService.Instance.CommandInvoker.UndoLastCommand();
         }
     }
 
