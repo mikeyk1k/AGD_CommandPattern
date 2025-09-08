@@ -24,7 +24,8 @@ namespace Command.Commands
         public void RegisterCommand(ICommand command) => commandRegistry.Push(command);
         public void UndoLastCommand()
         {
-            if(RegistryEmpty && !CommandBelongsToActivePlayer()) return;
+            if (RegistryEmpty) return;
+            if(!CommandBelongsToActivePlayer()) return;
             ICommand lastCommand = commandRegistry.Pop();
             lastCommand.Undo();
         }

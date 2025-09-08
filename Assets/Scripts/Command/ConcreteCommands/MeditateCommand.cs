@@ -6,6 +6,7 @@ namespace Command.Commands
     public class MeditateCommand : UnitCommand
     {
         private bool willHitTarget;
+        private int previousMaxHealth;
 
         public MeditateCommand(CommandData commandData)
         {
@@ -15,6 +16,7 @@ namespace Command.Commands
 
         public override void Execute()
         {
+            previousMaxHealth = targetUnit.CurrentMaxHealth;
             IAction action = GameService.Instance.ActionService.GetActionByType(CommandType.Meditate);
             action.PerformAction(actorUnit, targetUnit, willHitTarget);
         }
@@ -23,8 +25,8 @@ namespace Command.Commands
         {
             if (willHitTarget)
             {
-                int healthToDecrease = (int)(targetUnit.CurrentMaxHealth / 1.2f * 0.2f);
-                targetUnit.CurrentMaxHealth -= healthToDecrease;
+                int healthToDecrease = targetUnit.CurrentMaxHealth - previousMaxHealth;
+                targetUnit.CurrentMaxHealth = previousMaxHealth;
                 targetUnit.TakeDamage(healthToDecrease);
             }
             actorUnit.Owner.ResetCurrentActivePlayer();

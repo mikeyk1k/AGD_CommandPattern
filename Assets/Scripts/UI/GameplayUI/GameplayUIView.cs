@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using Command.Main;
 
 namespace Command.UI
 {
@@ -17,11 +18,13 @@ namespace Command.UI
         [SerializeField] private Color EnemyOverlayColor;
         [SerializeField] private Color ActionSelectionOverlayColor;
         [SerializeField] private Image backgroundImage;
+        [SerializeField] private Button undoButton;
 
         public void SetController(GameplayUIController controllerToSet) 
         {
             controller = controllerToSet;
             missedText.canvasRenderer.SetAlpha(0);
+            undoButton.onClick.AddListener(OnUndoButtonClicked);
         }
 
         public void DisableView() => gameObject.SetActive(false);
@@ -83,6 +86,11 @@ namespace Command.UI
             backgroundImage.gameObject.SetActive(true);
             backgroundImage.sprite = bgSprite;
         } 
+
+        private void OnUndoButtonClicked()
+        {
+            GameService.Instance.CommandInvoker.UndoLastCommand();
+        }
     }
 
     [Serializable]
