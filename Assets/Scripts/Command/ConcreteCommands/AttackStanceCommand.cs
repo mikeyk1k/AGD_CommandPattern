@@ -18,6 +18,13 @@ namespace Command.Commands
             IAction action = GameService.Instance.ActionService.GetActionByType(CommandType.AttackStance);
             action.PerformAction(actorUnit, targetUnit, willHitTarget);
         }
+        public override void Undo()
+        {
+            if (!willHitTarget) return;
+
+            targetUnit.CurrentPower = (int)(targetUnit.CurrentPower / 1.2f);
+            actorUnit.Owner.ResetCurrentActivePlayer();
+        }
 
         public override bool WillHitTarget() => true;
     }
