@@ -1,6 +1,6 @@
 using Command.Main;
 using Command.Player;
-using Command.Actions;
+using Command.Commands;
 
 namespace Command.Input
 {
