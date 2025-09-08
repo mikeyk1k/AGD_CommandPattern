@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Command.Main;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +8,11 @@ namespace Command.Commands
     public class CommandInvoker
     {
         private Stack<ICommand> commandRegistry = new Stack<ICommand>();
+        private bool RegistryEmpty => commandRegistry.Count == 0;
+        private bool CommandBelongsToActivePlayer()
+        {
+            return (commandRegistry.Peek() as UnitCommand).commandData.ActorPlayerID == GameService.Instance.PlayerService.ActivePlayerID;
+        }
 
         public void ProcessCommand(ICommand commandToProcess)
         {
@@ -16,5 +22,11 @@ namespace Command.Commands
 
         public void ExecuteCommand(ICommand command) => command.Execute();
         public void RegisterCommand(ICommand command) => commandRegistry.Push(command);
+        public void UndoLastCommand()
+        {
+            if(RegistryEmpty && !CommandBelongsToActivePlayer()) return;
+            ICommand lastCommand = commandRegistry.Pop();
+            lastCommand.Undo();
+        }
     }
 }
