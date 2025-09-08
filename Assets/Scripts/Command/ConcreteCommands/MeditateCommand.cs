@@ -19,6 +19,16 @@ namespace Command.Commands
             action.PerformAction(actorUnit, targetUnit, willHitTarget);
         }
 
+        public override void Undo()
+        {
+            if (willHitTarget)
+            {
+                int healthToDecrease = (int)(targetUnit.CurrentMaxHealth / 1.2f * 0.2f);
+                targetUnit.CurrentMaxHealth -= healthToDecrease;
+                targetUnit.TakeDamage(healthToDecrease);
+            }
+            actorUnit.Owner.ResetCurrentActivePlayer();
+        }
         public override bool WillHitTarget() => true;
     }
 }

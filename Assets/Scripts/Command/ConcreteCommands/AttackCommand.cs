@@ -21,6 +21,16 @@ namespace Command.Commands
             action.PerformAction(actorUnit, targetUnit, willHitTarget);
         }
 
+        public override void Undo()
+        {
+            if (!willHitTarget) return;
+
+            if (!targetUnit.IsAlive())
+                targetUnit.Revive();
+            targetUnit.RestoreHealth(actorUnit.CurrentPower);
+            actorUnit.Owner.ResetCurrentActivePlayer();
+        }
+
         public override bool WillHitTarget() => true;
     }
 }
