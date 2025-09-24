@@ -12,11 +12,13 @@ namespace Command.Events
     {
         public GameEventController<int> OnBattleSelected { get; private set; }
         public GameEventController<CommandType> OnActionSelected { get; private set; }
+        public GameEventController OnReplayButtonclicked { get; private set; }
 
         public EventService()
         {
             OnBattleSelected = new GameEventController<int>();
             OnActionSelected = new GameEventController<CommandType>();
+            OnReplayButtonclicked = new GameEventController();
         }
     }
 }

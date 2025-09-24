@@ -9,6 +9,12 @@ namespace Command.Commands
     {
         private Stack<ICommand> commandRegistry = new Stack<ICommand>();
         private bool RegistryEmpty => commandRegistry.Count == 0;
+
+        public CommandInvoker() => SubcribeToEvents();
+        private void SubcribeToEvents()
+        {
+            GameService.Instance.EventService.OnReplayButtonclicked.AddListener(SetReplayCommands);
+        }
         private bool CommandBelongsToActivePlayer()
         {
             return (commandRegistry.Peek() as UnitCommand).commandData.ActorPlayerID == GameService.Instance.PlayerService.ActivePlayerID;
@@ -28,6 +34,12 @@ namespace Command.Commands
             if(!CommandBelongsToActivePlayer()) return;
             ICommand lastCommand = commandRegistry.Pop();
             lastCommand.Undo();
+        }
+
+        public void SetReplayCommands()
+        {
+            GameService.Instance.ReplayService.SetReplayCommands(commandRegistry);
+            commandRegistry.Clear();
         }
     }
 }
